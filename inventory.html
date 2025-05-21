@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>إدارة المخزون - لوحة تحكم CANDLES IL RAJAA</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700&display=swap">
+    <link rel="stylesheet" href="css/admin-styles.css">
+</head>
+<body>
+    <!-- الترويسة -->
+    <header>
+        <div class="container header-container">
+            <div class="logo">
+                <img src="../candles_website/images/logo.png" alt="شعار CANDLES IL RAJAA" style="width: 60px; height: auto;">
+                <h1>لوحة تحكم CANDLES IL RAJAA</h1>
+            </div>
+            <div class="header-actions">
+                <button id="theme-toggle" class="theme-toggle" aria-label="تبديل الوضع">
+                    <i class="fas fa-moon"></i>
+                </button>
+                <button id="logout-btn" class="btn btn-danger" style="font-size: 0.8rem; padding: 5px 10px;">
+                    <i class="fas fa-sign-out-alt"></i> تسجيل الخروج
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- التخطيط الرئيسي -->
+    <div class="admin-layout">
+        <!-- القائمة الجانبية -->
+        <div class="sidebar">
+            <ul class="sidebar-menu">
+                <li class="sidebar-menu-item" data-page="dashboard">
+                    <i class="fas fa-tachometer-alt"></i> لوحة المعلومات
+                </li>
+                <li class="sidebar-menu-item" data-page="products">
+                    <i class="fas fa-box"></i> المنتجات
+                </li>
+                <li class="sidebar-menu-item" data-page="orders">
+                    <i class="fas fa-shopping-cart"></i> الطلبات
+                </li>
+                <li class="sidebar-menu-item" data-page="inventory">
+                    <i class="fas fa-warehouse"></i> المخزون
+                </li>
+                <li class="sidebar-menu-item" data-page="statistics">
+                    <i class="fas fa-chart-bar"></i> الإحصائيات
+                </li>
+                <li class="sidebar-menu-item" data-page="settings">
+                    <i class="fas fa-cog"></i> الإعدادات
+                </li>
+                <li class="sidebar-menu-item">
+                    <a href="../candles_website/index.html" target="_blank" style="color: inherit; text-decoration: none; display: flex; align-items: center; gap: 10px;">
+                        <i class="fas fa-store"></i> زيارة المتجر
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+        <!-- المحتوى الرئيسي -->
+        <div class="main-content">
+            <div id="alert-container"></div>
+            
+            <h2 class="dashboard-title">إدارة المخزون</h2>
+            
+            <!-- تصفية المخزون -->
+            <div class="form-container" style="margin-bottom: 20px;">
+                <div style="display: flex; gap: 15px; flex-wrap: wrap;">
+                    <div class="form-group" style="flex: 1; min-width: 200px;">
+                        <label for="inventory-status-filter" class="form-label">تصفية حسب الحالة</label>
+                        <select id="inventory-status-filter" class="form-select">
+                            <option value="all">جميع المنتجات</option>
+                            <option value="in_stock">متوفر</option>
+                            <option value="low_stock">منخفض</option>
+                            <option value="out_of_stock">غير متوفر</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group" style="flex: 1; min-width: 200px;">
+                        <label for="inventory-search" class="form-label">بحث</label>
+                        <input type="text" id="inventory-search" class="form-input" placeholder="اسم المنتج أو الرمز">
+                    </div>
+                </div>
+                
+                <button class="btn btn-primary" style="margin-top: 10px;">تطبيق التصفية</button>
+            </div>
+            
+            <!-- جدول المخزون -->
+            <div class="table-container">
+                <table class="admin-table">
+                    <thead>
+                        <tr>
+                            <th>الصورة</th>
+                            <th>اسم المنتج</th>
+                            <th>الرمز</th>
+                            <th>السعر</th>
+                            <th>المخزون الحالي</th>
+                            <th>الحد الأدنى</th>
+                            <th>الحالة</th>
+                            <th>تحديث المخزون</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><img src="../candles_website/images/Photoroom_20250505_030731.jpeg" alt="شمعة العناق الوردية" class="thumbnail"></td>
+                            <td>شمعة العناق الوردية</td>
+                            <td>HUG-PINK-001</td>
+                            <td>45 ريال</td>
+                            <td>15</td>
+                            <td>5</td>
+                            <td><span class="status-badge status-completed">متوفر</span></td>
+                            <td>
+                                <div style="display: flex; gap: 5px;">
+                                    <input type="number" class="form-input" style="width: 70px;" value="15">
+                                    <button class="btn btn-primary" style="font-size: 0.8rem; padding: 5px 10px;">تحديث</button>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><img src="../candles_website/images/bouquet.jpeg" alt="باقة الشموع البيضاء" class="thumbnail"></td>
+                            <td>باقة الشموع البيضاء</td>
+                            <td>BOUQ-WHITE-001</td>
+                            <td>100 ريال</td>
+                            <td>8</td>
+                            <td>5</td>
+                            <td><span class="status-badge status-completed">متوفر</span></td>
+                            <td>
+                                <div style="display: flex; gap: 5px;">
+                                    <input type="number" class="form-input" style="width: 70px;" value="8">
+                                    <button class="btn btn-primary" style="font-size: 0.8rem; padding: 5px 10px;">تحديث</button>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><img src="../candles_website/images/Photoroom_20250505_030306.jpeg" alt="شمعة العناق البيضاء" class="thumbnail"></td>
+                            <td>شمعة العناق البيضاء</td>
+                            <td>HUG-WHITE-001</td>
+                            <td>35 ريال</td>
+                            <td>20</td>
+                            <td>5</td>
+                            <td><span class="status-badge status-completed">متوفر</span></td>
+                            <td>
+                                <div style="display: flex; gap: 5px;">
+                                    <input type="number" class="form-input" style="width: 70px;" value="20">
+                                    <button class="btn btn-primary" style="font-size: 0.8rem; padding: 5px 10px;">تحديث</button>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><img src="../candles_website/images/IMG_1519.jpeg" alt="شمعة متموجة" class="thumbnail"></td>
+                            <td>شمعة متموجة</td>
+                            <td>WAVE-001</td>
+                            <td>30 ريال</td>
+                            <td>12</td>
+                            <td>5</td>
+                            <td><span class="status-badge status-completed">متوفر</span></td>
+                            <td>
+                                <div style="display: flex; gap: 5px;">
+                                    <input type="number" class="form-input" style="width: 70px;" value="12">
+                                    <button class="btn btn-primary" style="font-size: 0.8rem; padding: 5px 10px;">تحديث</button>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><img src="../candles_website/images/IMG_1523.jpeg" alt="شمعة نجمة البحر" class="thumbnail"></td>
+                            <td>شمعة نجمة البحر</td>
+                            <td>STAR-001</td>
+                            <td>55 ريال</td>
+                            <td>5</td>
+                            <td>5</td>
+                            <td><span class="status-badge status-warning">منخفض</span></td>
+                            <td>
+                                <div style="display: flex; gap: 5px;">
+                                    <input type="number" class="form-input" style="width: 70px;" value="5">
+                                    <button class="btn btn-primary" style="font-size: 0.8rem; padding: 5px 10px;">تحديث</button>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><img src="../candles_website/images/IMG_1517.jpeg" alt="شمعة الفقعات الوردية" class="thumbnail"></td>
+                            <td>شمعة الفقعات الوردية</td>
+                            <td>BUBBLE-PINK-001</td>
+                            <td>30 ريال</td>
+                            <td>0</td>
+                            <td>5</td>
+                            <td><span class="status-badge status-cancelled">غير متوفر</span></td>
+                            <td>
+                                <div style="display: flex; gap: 5px;">
+                                    <input type="number" class="form-input" style="width: 70px;" value="0">
+                                    <button class="btn btn-primary" style="font-size: 0.8rem; padding: 5px 10px;">تحديث</button>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <!-- تنبيهات المخزون -->
+            <div class="table-container" style="margin-top: 30px;">
+                <h3 style="margin-bottom: 15px;">تنبيهات المخزون</h3>
+                
+                <div class="alert alert-warning">
+                    <strong>تنبيه:</strong> المنتجات التالية منخفضة المخزون أو غير متوفرة:
+                    <ul style="margin-top: 10px; padding-right: 20px;">
+                        <li>شمعة نجمة البحر (5 قطع متبقية)</li>
+                        <li>شمعة الفقعات الوردية (غير متوفرة)</li>
+                    </ul>
+                </div>
+                
+                <div style="margin-top: 20px;">
+                    <h4 style="margin-bottom: 10px;">إعدادات تنبيهات المخزون</h4>
+                    <div class="form-group">
+                        <label for="min-stock-threshold" class="form-label">الحد الأدنى للمخزون (للتنبيه)</label>
+                        <input type="number" id="min-stock-threshold" class="form-input" value="5" style="max-width: 200px;">
+                    </div>
+                    <button class="btn btn-primary" style="margin-top: 10px;">حفظ الإعدادات</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- التذييل -->
+    <footer>
+        <p class="footer-text">جميع الحقوق محفوظة &copy; 2025 CANDLES IL RAJAA</p>
+    </footer>
+
+    <script src="js/admin.js"></script>
+</body>
+</html>

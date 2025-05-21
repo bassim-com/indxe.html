@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>إدارة الطلبات - لوحة تحكم CANDLES IL RAJAA</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700&display=swap">
+    <link rel="stylesheet" href="css/admin-styles.css">
+</head>
+<body>
+    <!-- الترويسة -->
+    <header>
+        <div class="container header-container">
+            <div class="logo">
+                <img src="../candles_website/images/logo.png" alt="شعار CANDLES IL RAJAA" style="width: 60px; height: auto;">
+                <h1>لوحة تحكم CANDLES IL RAJAA</h1>
+            </div>
+            <div class="header-actions">
+                <button id="theme-toggle" class="theme-toggle" aria-label="تبديل الوضع">
+                    <i class="fas fa-moon"></i>
+                </button>
+                <button id="logout-btn" class="btn btn-danger" style="font-size: 0.8rem; padding: 5px 10px;">
+                    <i class="fas fa-sign-out-alt"></i> تسجيل الخروج
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- التخطيط الرئيسي -->
+    <div class="admin-layout">
+        <!-- القائمة الجانبية -->
+        <div class="sidebar">
+            <ul class="sidebar-menu">
+                <li class="sidebar-menu-item" data-page="dashboard">
+                    <i class="fas fa-tachometer-alt"></i> لوحة المعلومات
+                </li>
+                <li class="sidebar-menu-item" data-page="products">
+                    <i class="fas fa-box"></i> المنتجات
+                </li>
+                <li class="sidebar-menu-item" data-page="orders">
+                    <i class="fas fa-shopping-cart"></i> الطلبات
+                </li>
+                <li class="sidebar-menu-item" data-page="inventory">
+                    <i class="fas fa-warehouse"></i> المخزون
+                </li>
+                <li class="sidebar-menu-item" data-page="statistics">
+                    <i class="fas fa-chart-bar"></i> الإحصائيات
+                </li>
+                <li class="sidebar-menu-item" data-page="settings">
+                    <i class="fas fa-cog"></i> الإعدادات
+                </li>
+                <li class="sidebar-menu-item">
+                    <a href="../candles_website/index.html" target="_blank" style="color: inherit; text-decoration: none; display: flex; align-items: center; gap: 10px;">
+                        <i class="fas fa-store"></i> زيارة المتجر
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+        <!-- المحتوى الرئيسي -->
+        <div class="main-content">
+            <div id="alert-container"></div>
+            
+            <h2 class="dashboard-title">إدارة الطلبات</h2>
+            
+            <!-- تصفية الطلبات -->
+            <div class="form-container" style="margin-bottom: 20px;">
+                <div style="display: flex; gap: 15px; flex-wrap: wrap;">
+                    <div class="form-group" style="flex: 1; min-width: 200px;">
+                        <label for="order-status-filter" class="form-label">تصفية حسب الحالة</label>
+                        <select id="order-status-filter" class="form-select">
+                            <option value="all">جميع الطلبات</option>
+                            <option value="pending">قيد الانتظار</option>
+                            <option value="processing">قيد المعالجة</option>
+                            <option value="completed">مكتمل</option>
+                            <option value="cancelled">ملغي</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group" style="flex: 1; min-width: 200px;">
+                        <label for="order-date-filter" class="form-label">تصفية حسب التاريخ</label>
+                        <select id="order-date-filter" class="form-select">
+                            <option value="all">جميع التواريخ</option>
+                            <option value="today">اليوم</option>
+                            <option value="yesterday">أمس</option>
+                            <option value="last_week">الأسبوع الماضي</option>
+                            <option value="last_month">الشهر الماضي</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group" style="flex: 1; min-width: 200px;">
+                        <label for="order-search" class="form-label">بحث</label>
+                        <input type="text" id="order-search" class="form-input" placeholder="رقم الطلب أو اسم العميل">
+                    </div>
+                </div>
+                
+                <button class="btn btn-primary" style="margin-top: 10px;">تطبيق التصفية</button>
+            </div>
+            
+            <!-- جدول الطلبات -->
+            <div class="table-container">
+                <table class="admin-table">
+                    <thead>
+                        <tr>
+                            <th>رقم الطلب</th>
+                            <th>العميل</th>
+                            <th>التاريخ</th>
+                            <th>المنتجات</th>
+                            <th>المبلغ</th>
+                            <th>الحالة</th>
+                            <th>الإجراءات</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>#1001</td>
+                            <td>محمد أحمد</td>
+                            <td>20 مايو 2025</td>
+                            <td>شمعة العناق الوردية (1), شمعة متموجة (2)</td>
+                            <td>145 ريال</td>
+                            <td>
+                                <select class="form-select order-status-select" data-order-id="1001" style="width: auto; min-width: 120px;">
+                                    <option value="pending" selected>قيد الانتظار</option>
+                                    <option value="processing">قيد المعالجة</option>
+                                    <option value="completed">مكتمل</option>
+                                    <option value="cancelled">ملغي</option>
+                                </select>
+                            </td>
+                            <td>
+                                <button class="btn btn-primary" style="font-size: 0.8rem; padding: 5px 10px;" onclick="viewOrderDetails('1001')">عرض</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>#1002</td>
+                            <td>سارة خالد</td>
+                            <td>19 مايو 2025</td>
+                            <td>باقة الشموع البيضاء (1), شمعة العناق البيضاء (1)</td>
+                            <td>230 ريال</td>
+                            <td>
+                                <select class="form-select order-status-select" data-order-id="1002" style="width: auto; min-width: 120px;">
+                                    <option value="pending">قيد الانتظار</option>
+                                    <option value="processing" selected>قيد المعالجة</option>
+                                    <option value="completed">مكتمل</option>
+                                    <option value="cancelled">ملغي</option>
+                                </select>
+                            </td>
+                            <td>
+                                <button class="btn btn-primary" style="font-size: 0.8rem; padding: 5px 10px;" onclick="viewOrderDetails('1002')">عرض</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>#1003</td>
+                            <td>فهد عبدالله</td>
+                            <td>18 مايو 2025</td>
+                            <td>شمعة نجمة البحر (1), شمعة الفقعات الوردية (1)</td>
+                            <td>100 ريال</td>
+                            <td>
+                                <select class="form-select order-status-select" data-order-id="1003" style="width: auto; min-width: 120px;">
+                                    <option value="pending">قيد الانتظار</option>
+                                    <option value="processing">قيد المعالجة</option>
+                                    <option value="completed" selected>مكتمل</option>
+                                    <option value="cancelled">ملغي</option>
+                                </select>
+                            </td>
+                            <td>
+                                <button class="btn btn-primary" style="font-size: 0.8rem; padding: 5px 10px;" onclick="viewOrderDetails('1003')">عرض</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>#1004</td>
+                            <td>نورة سعد</td>
+                            <td>17 مايو 2025</td>
+                            <td>شمعة نجمة البحر (1)</td>
+                            <td>55 ريال</td>
+                            <td>
+                                <select class="form-select order-status-select" data-order-id="1004" style="width: auto; min-width: 120px;">
+                                    <option value="pending">قيد الانتظار</option>
+                                    <option value="processing">قيد المعالجة</option>
+                                    <option value="completed">مكتمل</option>
+                                    <option value="cancelled" selected>ملغي</option>
+                                </select>
+                            </td>
+                            <td>
+                                <button class="btn btn-primary" style="font-size: 0.8rem; padding: 5px 10px;" onclick="viewOrderDetails('1004')">عرض</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>#1005</td>
+                            <td>عبدالرحمن محمد</td>
+                            <td>16 مايو 2025</td>
+                            <td>شمعة العناق البيضاء (2), شمعة متموجة (1)</td>
+                            <td>100 ريال</td>
+                            <td>
+                                <select class="form-select order-status-select" data-order-id="1005" style="width: auto; min-width: 120px;">
+                                    <option value="pending">قيد الانتظار</option>
+                                    <option value="processing">قيد المعالجة</option>
+                                    <option value="completed" selected>مكتمل</option>
+                                    <option value="cancelled">ملغي</option>
+                                </select>
+                            </td>
+                            <td>
+                                <button class="btn btn-primary" style="font-size: 0.8rem; padding: 5px 10px;" onclick="viewOrderDetails('1005')">عرض</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <!-- تفاصيل الطلب (مخفي بشكل افتراضي) -->
+            <div id="order-details-modal" style="display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background-color: rgba(0, 0, 0, 0.5); z-index: 1000; overflow: auto;">
+                <div style="background-color: white; margin: 50px auto; padding: 20px; border-radius: 8px; max-width: 800px; position: relative;">
+                    <button onclick="closeOrderDetails()" style="position: absolute; top: 10px; left: 10px; background: none; border: none; font-size: 1.5rem; cursor: pointer;">&times;</button>
+                    
+                    <h3 style="margin-bottom: 20px;">تفاصيل الطلب #<span id="order-id-display">1001</span></h3>
+                    
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 20px;">
+                        <div>
+                            <h4>معلومات العميل</h4>
+                            <p><strong>الاسم:</strong> <span id="customer-name">محمد أحمد</span></p>
+                            <p><strong>الهاتف:</strong> <span id="customer-phone">+966 50 123 4567</span></p>
+                            <p><strong>البريد الإلكتروني:</strong> <span id="customer-email">mohammed@example.com</span></p>
+                        </div>
+                        
+                        <div>
+                            <h4>معلومات الشحن</h4>
+                            <p><strong>العنوان:</strong> <span id="shipping-address">الرياض، حي النزهة، شارع الأمير سلطان</span></p>
+                            <p><strong>المدينة:</strong> <span id="shipping-city">الرياض</span></p>
+                            <p><strong>الدولة:</strong> <span id="shipping-country">المملكة العربية السعودية</span></p>
+                        </div>
+                    </div>
+                    
+                    <h4>المنتجات</h4>
+                    <table class="admin-table" style="margin-bottom: 20px;">
+                        <thead>
+                            <tr>
+                                <th>المنتج</th>
+                                <th>السعر</th>
+                                <th>الكمية</th>
+                                <th>المجموع</th>
+                            </tr>
+                        </thead>
+                        <tbody id="order-items">
+                            <tr>
+                                <td>شمعة العناق الوردية</td>
+                                <td>45 ريال</td>
+                                <td>1</td>
+                                <td>45 ريال</td>
+                            </tr>
+                            <tr>
+                                <td>شمعة متموجة</td>
+                                <td>30 ريال</td>
+                                <td>2</td>
+                                <td>60 ريال</td>
+                            </tr>
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <td colspan="3" style="text-align: left;"><strong>المجموع الفرعي</strong></td>
+                                <td>105 ريال</td>
+                            </tr>
+                            <tr>
+                                <td colspan="3" style="text-align: left;"><strong>الشحن</strong></td>
+                                <td>40 ريال</td>
+                            </tr>
+                            <tr>
+                                <td colspan="3" style="text-align: left;"><strong>المجموع الكلي</strong></td>
+                                <td><strong>145 ريال</strong></td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                    
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <div>
+                            <strong>حالة الطلب:</strong>
+                            <select id="order-status-detail" class="form-select" style="display: inline-block; width: auto; min-width: 150px; margin-right: 10px;">
+                                <option value="pending" selected>قيد الانتظار</option>
+                                <option value="processing">قيد المعالجة</option>
+                                <option value="completed">مكتمل</option>
+                                <option value="cancelled">ملغي</option>
+                            </select>
+                            <button class="btn btn-primary" onclick="updateOrderStatus()">تحديث الحالة</button>
+                        </div>
+                        
+                        <div>
+                            <button class="btn btn-success" onclick="printOrder()">
+                                <i class="fas fa-p
+(Content truncated due to size limit. Use line ranges to read in chunks)

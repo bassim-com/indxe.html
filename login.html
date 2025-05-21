@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تسجيل الدخول - لوحة تحكم CANDLES IL RAJAA</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700&display=swap">
+    <link rel="stylesheet" href="css/admin-styles.css">
+</head>
+<body>
+    <div class="login-container">
+        <div class="login-form">
+            <div class="login-logo">
+                <img src="../candles_website/images/logo.png" alt="شعار CANDLES IL RAJAA">
+            </div>
+            <h2 class="login-title">تسجيل الدخول إلى لوحة التحكم</h2>
+            
+            <div id="alert-container"></div>
+            
+            <form id="login-form">
+                <div class="form-group">
+                    <label for="username" class="form-label">اسم المستخدم</label>
+                    <input type="text" id="username" class="form-input" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="password" class="form-label">كلمة المرور</label>
+                    <input type="password" id="password" class="form-input" required>
+                </div>
+                
+                <button type="submit" class="btn btn-primary login-btn">تسجيل الدخول</button>
+            </form>
+            
+            <div style="margin-top: 20px; text-align: center;">
+                <p>بيانات الدخول التجريبية:</p>
+                <p>اسم المستخدم: admin</p>
+                <p>كلمة المرور: admin123</p>
+            </div>
+        </div>
+    </div>
+    
+    <script src="js/admin.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const loginForm = document.getElementById('login-form');
+            if (loginForm) {
+                loginForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    
+                    const username = document.getElementById('username').value;
+                    const password = document.getElementById('password').value;
+                    
+                    if (login(username, password)) {
+                        // تم نقل التوجيه إلى دالة login في ملف admin.js
+                    } else {
+                        const alertContainer = document.getElementById('alert-container');
+                        alertContainer.innerHTML = `
+                            <div class="alert alert-danger">
+                                اسم المستخدم أو كلمة المرور غير صحيحة
+                            </div>
+                        `;
+                        
+                        setTimeout(() => {
+                            alertContainer.innerHTML = '';
+                        }, 3000);
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+</html>

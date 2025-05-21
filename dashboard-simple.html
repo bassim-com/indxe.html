@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>لوحة المعلومات - CANDLES IL RAJAA</title>
+    <style>
+        /* أنماط أساسية */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Tajawal', 'Arial', sans-serif;
+        }
+        
+        body {
+            background-color: #f8f4f1;
+            color: #333;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        /* الترويسة */
+        header {
+            background-color: #fff;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            padding: 15px 0;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .logo img {
+            width: 40px;
+            height: auto;
+        }
+        
+        .logo h1 {
+            font-size: 18px;
+            color: #a18a76;
+        }
+        
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .theme-toggle {
+            background: none;
+            border: none;
+            color: #a18a76;
+            font-size: 18px;
+            cursor: pointer;
+        }
+        
+        .btn {
+            padding: 8px 15px;
+            border-radius: 5px;
+            border: none;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background-color 0.3s;
+        }
+        
+        .btn-danger {
+            background-color: #dc3545;
+            color: white;
+        }
+        
+        .btn-danger:hover {
+            background-color: #c82333;
+        }
+        
+        /* التخطيط الرئيسي */
+        .admin-layout {
+            display: flex;
+            flex: 1;
+        }
+        
+        /* القائمة الجانبية */
+        .sidebar {
+            width: 250px;
+            background-color: #fff;
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.05);
+            padding: 20px 0;
+        }
+        
+        .sidebar-menu {
+            list-style: none;
+        }
+        
+        .sidebar-menu-item {
+            padding: 12px 20px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: background-color 0.3s;
+        }
+        
+        .sidebar-menu-item:hover {
+            background-color: #f8f4f1;
+        }
+        
+        .sidebar-menu-item.active {
+            background-color: #f0e6dd;
+            color: #8c7b6b;
+            font-weight: 500;
+        }
+        
+        /* المحتوى الرئيسي */
+        .main-content {
+            flex: 1;
+            padding: 30px;
+        }
+        
+        .dashboard-title {
+            color: #a18a76;
+            margin-bottom: 20px;
+            font-size: 24px;
+        }
+        
+        /* بطاقات الإحصائيات */
+        .stats-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .stat-card {
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+            padding: 20px;
+            text-align: center;
+        }
+        
+        .stat-card-title {
+            color: #666;
+            font-size: 16px;
+            margin-bottom: 10px;
+        }
+        
+        .stat-card-value {
+            color: #a18a76;
+            font-size: 28px;
+            font-weight: 700;
+        }
+        
+        /* أقسام لوحة المعلومات */
+        .dashboard-section {
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+            padding: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .dashboard-section-title {
+            color: #a18a76;
+            font-size: 18px;
+            margin-bottom: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        /* جدول الطلبات الأخيرة */
+        .orders-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        .orders-table th,
+        .orders-table td {
+            padding: 12px 15px;
+            text-align: right;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .orders-table th {
+            color: #666;
+            font-weight: 500;
+        }
+        
+        .orders-table tr:last-child td {
+            border-bottom: none;
+        }
+        
+        .status-badge {
+            display: inline-block;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+        
+        .status-pending {
+            background-color: #fff8e1;
+            color: #ffa000;
+        }
+        
+        .status-processing {
+            background-color: #e3f2fd;
+            color: #1976d2;
+        }
+        
+        .status-completed {
+            background-color: #e8f5e9;
+            color: #388e3c;
+        }
+        
+        .status-cancelled {
+            background-color: #ffebee;
+            color: #d32f2f;
+        }
+        
+        /* المنتجات منخفضة المخزون */
+        .low-stock-list {
+            list-style: none;
+        }
+        
+        .low-stock-item {
+            display: flex;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .low-stock-item:last-child {
+            border-bottom: none;
+        }
+        
+        .low-stock-image {
+            width: 50px;
+            height: 50px;
+            object-fit: cover;
+            border-radius: 5px;
+            margin-left: 15px;
+        }
+        
+        .low-stock-info {
+            flex: 1;
+        }
+        
+        .low-stock-name {
+            font-weight: 500;
+            margin-bottom: 5px;
+        }
+        
+        .low-stock-stock {
+            font-size: 14px;
+            color: #d32f2f;
+        }
+        
+        /* التذييل */
+        footer {
+            background-color: #fff;
+            padding: 15px 0;
+            text-align: center;
+            box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.05);
+        }
+        
+        .footer-text {
+            color: #666;
+            font-size: 14px;
+        }
+        
+        /* الوضع المظلم */
+        body.dark-mode {
+            background-color: #1a1a1a;
+            color: #f1f1f1;
+        }
+        
+        body.dark-mode header,
+        body.dark-mode .sidebar,
+        body.dark-mode .stat-card,
+        body.dark-mode .dashboard-section,
+        body.dark-mode footer {
+            background-color: #2a2a2a;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+        
+        body.dark-mode .logo h1,
+        body.dark-mode .dashboard-title,
+        body.dark-mode .stat-card-value,
+        body.dark-mode .dashboard-section-title {
+            color: #d9c5b4;
+        }
+        
+        body.dark-mode .sidebar-menu-item:hover {
+            background-color: #333;
+        }
+        
+        body.dark-mode .sidebar-menu-item.active {
+            background-color: #3a3a3a;
+            color: #d9c5b4;
+        }
+        
+        body.dark-mode .orders-table th,
+        body.dark-mode .footer-text {
+            color: #aaa;
+        }
+        
+        body.dark-mode .orders-table td {
+            border-bottom-color: #3a3a3a;
+        }
+        
+        body.dark-mode .low-stock-item {
+            border-bottom-color: #3a3a3a;
+        }
+        
+        /* التنبيهات */
+        .alert {
+            padding: 10px 15px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+        
+        .alert-success {
+            background-color: #e8f5e9;
+            color: #388e3c;
+            border: 1px solid #c8e6c9;
+        }
+        
+        .alert-danger {
+            background-color: #ffebee;
+            color: #d32f2f;
+            border: 1px solid #ffcdd2;
+        }
+    </style>
+</head>
+<body>
+    <!-- الترويسة -->
+    <header>
+        <div class="container header-container">
+            <div class="logo">
+                <img src="../candles_website/images/logo.png" alt="شعار CANDLES IL RAJAA" style="width: 60px; height: auto;">
+                <h1>لوحة تحكم CANDLES IL RAJAA</h1>
+            </div>
+            <div class="header-actions">
+                <button id="theme-toggle" class="theme-toggle" aria-label="تبديل الوضع">
+                    <i class="fas fa-moon">🌙</i>
+                </button>
+                <button id="logout-btn" class="btn btn-danger" style="font-size: 0.8rem; padding: 5px 10px;">
+                    <i class="fas fa-sign-out-alt">🚪</i> تسجيل الخروج
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- التخطيط الرئيسي -->
+    <div class="admin-layout">
+        <!-- القائمة الجانبية -->
+        <div class="sidebar">
+            <ul class="sidebar-menu">
+                <li class="sidebar-menu-item active">
+                    <i class="fas">📊</i> لوحة المعلومات
+                </li>
+                <li class="sidebar-menu-item">
+                    <i class="fas">📦</i> المنتجات
+                </li>
+                <li class="sidebar-menu-item">
+                    <i class="fas">🛒</i> الطلبات
+                </li>
+                <li class="sidebar-menu-item">
+                    <i class="fas">🏭</i> المخزون
+                </li>
+                <li class="sidebar-menu-item">
+                    <i class="fas">📈</i> الإحصائيات
+                </li>
+                <li class="sidebar-menu-item">
+                    <i class="fas">⚙️</i> الإعدادات
+                </li>
+                <li class="sidebar-menu-item">
+                    <a href="../candles_website/index.html" target="_blank" style="color: inherit; text-decoration: none; display: flex; align-items: center; gap: 10px;">
+                        <i class="fas">🏪</i> زيارة المتجر
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+        <!-- المحتوى الرئيسي -->
+        <div class="main-content">
+            <div id="alert-container"></div>
+            
+            <h2 class="dashboard-title">لوحة المعلومات</h2>
+            
+            <!-- بطاقات الإحصائيات -->
+            <div class="stats-cards">
+                <div class="stat-card">
+                    <div class="stat-card-title">إجمالي المبيعات</div>
+                    <div class="stat-card-value">٥٨٠ ريال</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-card-title">عدد الطلبات</div>
+                    <div class="stat-card-value">٥</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-card-title">متوسط قيمة الطلب</div>
+                    <div class="stat-card-value">١١٦ ريال</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-card-title">عدد المنتجات</div>
+                    <div class="stat-card-value">٦</div>
+                </div>
+            </div>
+            
+            <!-- الطلبات الأخيرة -->
+            <div class="dashboard-section">
+                <div class="dashboard-section-title">
+                    <span>الطلبات الأخيرة</span>
+                    <a href="#" style="font-size: 14px; color: #a18a76; text-decoration: none;">عرض الكل</a>
+                </div>
+                <table class="orders-table">
+                    <thead>
+                        <tr>
+                            <th>رقم الطلب</th>
+                            <th>العميل</th>
+                            <th>التاريخ</th>
+                            <th>المبلغ</th>
+                            <th>الحالة</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>#1001</td>
+                            <td>محمد أحمد</td>
+                            <td>20 مايو 2025</td>
+                            <td>145 ريال</td>
+                            <td><span class="status-badge status-pending">قيد الانتظار</span></td>
+                        </tr>
+                        <tr>
+                            <td>#1002</td>
+                            <td>سارة خالد</td>
+                            <td>19 مايو 2025</td>
+                            <td>175 ريال</td>
+                            <td><span class="status-badge status-processing">قيد المعالجة</span></td>
+                        </tr>
+                        <tr>
+                            <td>#1003</td>
+                            <td>فهد عبدالله</td>
+                            <td>18 مايو 2025</td>
+                            <td>125 ريال</td>
+                            <td><span class="status-badge status-completed">مكتمل</span></td>
+                        </tr>
+                        <tr>
+                            <td>#1004</td>
+                            <td>نورة سعد</td>
+                            <td>17 مايو 2025</td>
+                            <td>95 ريال</td>
+                            <td><span class="status-badge status-cancelled">ملغي</span></td>
+                        </tr>
+                        <tr>
+                            <td>#1005</td>
+                            <td>عبدالرحمن محمد</td>
+                            <td>16 مايو 2025</td>
+                            <td>140 ريال</td>
+                            <td><span class="status-badge status-completed">مكتمل</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <!-- المنتجات منخفضة المخزون -->
+            <div class="dashboard-section">
+                <div class="dashboard-section-title">
+                    <span>المنتجات منخفضة المخزون</span>
+                    <a href="#" style="font-size: 14px; color: #a18a76; text-decoration: none;">تحديث المخزون</a>
+                </div>
+                <ul class="low-stock-list">
+                    <li class="low-stock-item">
+                        <img src="../candles_website/images/IMG_1523.jpeg" alt="شمعة نجمة البحر" class="low-stock-image">
+                        <div class="low-stock-info">
+                            <div class="low-stock-name">شمعة نجمة البحر</div>
+                            <div class="low-stock-stock">المخزون: 5 قطع</div>
+                        </div>
+                    </li>
+                    <li class="low-stock-item">
+                        <img src="../candles_website/images/IMG_1517.jpeg" alt="شمعة الفقعات الوردية" class="low-stock-image">
+                        <div class="low-stock-info">
+                            <div class="low-stock-name">شمعة الفقعات الوردية</div>
+                            <div class="low-stock-stock">المخزون: 0 قطع</div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- التذييل -->
+    <footer>
+        <p class="footer-text">جميع الحقوق محفوظة &copy; 2025 CANDLES IL RAJAA</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // التحقق من حالة تسجيل الدخول
+            if (localStorage.getItem('isLoggedIn') !== 'true') {
+                window.location.href = 'login-simple.html';
+                return;
+            }
+            
+            // تطبيق الوضع المظلم إذا كان مفعلاً
+            const darkMode = localStorage.getIte
+(Content truncated due to size limit. Use line ranges to read in chunks)

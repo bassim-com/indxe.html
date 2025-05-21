@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>الإعدادات - لوحة تحكم CANDLES IL RAJAA</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700&display=swap">
+    <link rel="stylesheet" href="css/admin-styles.css">
+</head>
+<body>
+    <!-- الترويسة -->
+    <header>
+        <div class="container header-container">
+            <div class="logo">
+                <img src="../candles_website/images/logo.png" alt="شعار CANDLES IL RAJAA" style="width: 60px; height: auto;">
+                <h1>لوحة تحكم CANDLES IL RAJAA</h1>
+            </div>
+            <div class="header-actions">
+                <button id="theme-toggle" class="theme-toggle" aria-label="تبديل الوضع">
+                    <i class="fas fa-moon"></i>
+                </button>
+                <button id="logout-btn" class="btn btn-danger" style="font-size: 0.8rem; padding: 5px 10px;">
+                    <i class="fas fa-sign-out-alt"></i> تسجيل الخروج
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- التخطيط الرئيسي -->
+    <div class="admin-layout">
+        <!-- القائمة الجانبية -->
+        <div class="sidebar">
+            <ul class="sidebar-menu">
+                <li class="sidebar-menu-item" data-page="dashboard">
+                    <i class="fas fa-tachometer-alt"></i> لوحة المعلومات
+                </li>
+                <li class="sidebar-menu-item" data-page="products">
+                    <i class="fas fa-box"></i> المنتجات
+                </li>
+                <li class="sidebar-menu-item" data-page="orders">
+                    <i class="fas fa-shopping-cart"></i> الطلبات
+                </li>
+                <li class="sidebar-menu-item" data-page="inventory">
+                    <i class="fas fa-warehouse"></i> المخزون
+                </li>
+                <li class="sidebar-menu-item" data-page="statistics">
+                    <i class="fas fa-chart-bar"></i> الإحصائيات
+                </li>
+                <li class="sidebar-menu-item" data-page="settings">
+                    <i class="fas fa-cog"></i> الإعدادات
+                </li>
+                <li class="sidebar-menu-item">
+                    <a href="../candles_website/index.html" target="_blank" style="color: inherit; text-decoration: none; display: flex; align-items: center; gap: 10px;">
+                        <i class="fas fa-store"></i> زيارة المتجر
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+        <!-- المحتوى الرئيسي -->
+        <div class="main-content">
+            <div id="alert-container"></div>
+            
+            <h2 class="dashboard-title">الإعدادات</h2>
+            
+            <!-- تبويبات الإعدادات -->
+            <div class="tabs">
+                <div class="tab active" data-tab="general-settings">إعدادات عامة</div>
+                <div class="tab" data-tab="account-settings">إعدادات الحساب</div>
+                <div class="tab" data-tab="store-settings">إعدادات المتجر</div>
+                <div class="tab" data-tab="notification-settings">إعدادات الإشعارات</div>
+            </div>
+            
+            <!-- إعدادات عامة -->
+            <div id="general-settings" class="tab-content active">
+                <div class="form-container">
+                    <h3 style="margin-bottom: 20px;">إعدادات عامة</h3>
+                    
+                    <form id="general-settings-form">
+                        <div class="form-group">
+                            <label for="store-name" class="form-label">اسم المتجر</label>
+                            <input type="text" id="store-name" class="form-input" value="CANDLES IL RAJAA">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="store-description" class="form-label">وصف المتجر</label>
+                            <textarea id="store-description" class="form-textarea">متجر متخصص في بيع الشموع الفنية المصنوعة يدويًا بتصاميم فريدة وألوان جذابة.</textarea>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="store-phone" class="form-label">رقم الهاتف</label>
+                            <input type="tel" id="store-phone" class="form-input" value="+966550873657">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="store-email" class="form-label">البريد الإلكتروني</label>
+                            <input type="email" id="store-email" class="form-input" value="info@candlesilrajaa.com">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="store-currency" class="form-label">العملة</label>
+                            <select id="store-currency" class="form-select">
+                                <option value="SAR" selected>ريال سعودي (SAR)</option>
+                                <option value="USD">دولار أمريكي (USD)</option>
+                                <option value="AED">درهم إماراتي (AED)</option>
+                                <option value="KWD">دينار كويتي (KWD)</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="store-language" class="form-label">اللغة</label>
+                            <select id="store-language" class="form-select">
+                                <option value="ar" selected>العربية</option>
+                                <option value="en">الإنجليزية</option>
+                                <option value="both">العربية والإنجليزية</option>
+                            </select>
+                        </div>
+                        
+                        <button type="submit" class="btn btn-primary">حفظ الإعدادات</button>
+                    </form>
+                </div>
+            </div>
+            
+            <!-- إعدادات الحساب -->
+            <div id="account-settings" class="tab-content">
+                <div class="form-container">
+                    <h3 style="margin-bottom: 20px;">إعدادات الحساب</h3>
+                    
+                    <form id="account-settings-form">
+                        <div class="form-group">
+                            <label for="admin-name" class="form-label">الاسم</label>
+                            <input type="text" id="admin-name" class="form-input" value="مدير النظام">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="admin-email" class="form-label">البريد الإلكتروني</label>
+                            <input type="email" id="admin-email" class="form-input" value="admin@candlesilrajaa.com">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="admin-username" class="form-label">اسم المستخدم</label>
+                            <input type="text" id="admin-username" class="form-input" value="admin">
+                        </div>
+                        
+                        <h4 style="margin-top: 30px; margin-bottom: 15px;">تغيير كلمة المرور</h4>
+                        
+                        <div class="form-group">
+                            <label for="current-password" class="form-label">كلمة المرور الحالية</label>
+                            <input type="password" id="current-password" class="form-input">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="new-password" class="form-label">كلمة المرور الجديدة</label>
+                            <input type="password" id="new-password" class="form-input">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="confirm-password" class="form-label">تأكيد كلمة المرور الجديدة</label>
+                            <input type="password" id="confirm-password" class="form-input">
+                        </div>
+                        
+                        <button type="submit" class="btn btn-primary">حفظ الإعدادات</button>
+                    </form>
+                </div>
+            </div>
+            
+            <!-- إعدادات المتجر -->
+            <div id="store-settings" class="tab-content">
+                <div class="form-container">
+                    <h3 style="margin-bottom: 20px;">إعدادات المتجر</h3>
+                    
+                    <form id="store-settings-form">
+                        <div class="form-group">
+                            <label for="shipping-fee" class="form-label">رسوم الشحن (ريال)</label>
+                            <input type="number" id="shipping-fee" class="form-input" value="40" min="0">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="tax-rate" class="form-label">نسبة الضريبة (%)</label>
+                            <input type="number" id="tax-rate" class="form-input" value="15" min="0" max="100">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="min-order-value" class="form-label">الحد الأدنى لقيمة الطلب (ريال)</label>
+                            <input type="number" id="min-order-value" class="form-input" value="50" min="0">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="free-shipping-threshold" class="form-label">الحد الأدنى للشحن المجاني (ريال)</label>
+                            <input type="number" id="free-shipping-threshold" class="form-input" value="200" min="0">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">طرق الدفع المتاحة</label>
+                            <div class="checkbox-group">
+                                <div class="checkbox-item">
+                                    <input type="checkbox" id="payment-cash" checked>
+                                    <label for="payment-cash">الدفع عند الاستلام</label>
+                                </div>
+                                <div class="checkbox-item">
+                                    <input type="checkbox" id="payment-bank" checked>
+                                    <label for="payment-bank">التحويل البنكي</label>
+                                </div>
+                                <div class="checkbox-item">
+                                    <input type="checkbox" id="payment-card" checked>
+                                    <label for="payment-card">بطاقة ائتمان</label>
+                                </div>
+                                <div class="checkbox-item">
+                                    <input type="checkbox" id="payment-mada" checked>
+                                    <label for="payment-mada">مدى</label>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">مناطق الشحن المتاحة</label>
+                            <div class="checkbox-group">
+                                <div class="checkbox-item">
+                                    <input type="checkbox" id="shipping-riyadh" checked>
+                                    <label for="shipping-riyadh">الرياض</label>
+                                </div>
+                                <div class="checkbox-item">
+                                    <input type="checkbox" id="shipping-jeddah" checked>
+                                    <label for="shipping-jeddah">جدة</label>
+                                </div>
+                                <div class="checkbox-item">
+                                    <input type="checkbox" id="shipping-dammam" checked>
+                                    <label for="shipping-dammam">الدمام</label>
+                                </div>
+                                <div class="checkbox-item">
+                                    <input type="checkbox" id="shipping-other" checked>
+                                    <label for="shipping-other">مناطق أخرى</label>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <button type="submit" class="btn btn-primary">حفظ الإعدادات</button>
+                    </form>
+                </div>
+            </div>
+            
+            <!-- إعدادات الإشعارات -->
+            <div id="notification-settings" class="tab-content">
+                <div class="form-container">
+                    <h3 style="margin-bottom: 20px;">إعدادات الإشعارات</h3>
+                    
+                    <form id="notification-settings-form">
+                        <div class="form-group">
+                            <label class="form-label">إشعارات البريد الإلكتروني</label>
+                            <div class="checkbox-group">
+                                <div class="checkbox-item">
+                                    <input type="checkbox" id="email-new-order" checked>
+                                    <label for="email-new-order">طلب جديد</label>
+                                </div>
+                                <div class="checkbox-item">
+                                    <input type="checkbox" id="email-low-stock" checked>
+                                    <label for="email-low-stock">انخفاض المخزون</label>
+                                </div>
+                                <div class="checkbox-item">
+                                    <input type="checkbox" id="email-contact-form" checked>
+                                    <label for="email-contact-form">رسالة من نموذج الاتصال</label>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">إشعارات الجوال</label>
+                            <div class="checkbox-group">
+                                <div class="checkbox-item">
+                                    <input type="checkbox" id="sms-new-order" checked>
+                                    <label for="sms-new-order">طلب جديد</label>
+                                </div>
+                                <div class="checkbox-item">
+                                    <input type="checkbox" id="sms-low-stock">
+                                    <label for="sms-low-stock">انخفاض المخزون</label>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="notification-email" class="form-label">البريد الإلكتروني للإشعارات</label>
+                            <input type="email" id="notification-email" class="form-input" value="notifications@candlesilrajaa.com">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="notification-phone" class="form-label">رقم الجوال للإشعارات</label>
+                            <input type="tel" id="notification-phone" class="form-input" value="+96
+(Content truncated due to size limit. Use line ranges to read in chunks)
